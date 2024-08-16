@@ -1,12 +1,14 @@
 import { useSyncedStore } from "@syncedstore/react";
 import { store } from "./collab/store";
+import { AvatarStack } from "./collab/avatar-stack";
 
 export default function App() {
   const state = useSyncedStore(store);
 
   return (
     <div className="max-w-2xl mx-auto my-12">
-      <h1 className="font-bold text-2xl mb-6">Collaborative Todo list ✨</h1>
+      <AvatarStack />
+      <h1 className="font-bold text-2xl my-6">Collaborative Todo list ✨</h1>
       <ul className="text-lg max-w-44">
         {state.todos.map((todo, i) => {
           return (

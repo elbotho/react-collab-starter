@@ -1,5 +1,6 @@
 import { syncedStore, getYjsDoc } from "@syncedstore/core";
 import { WebsocketProvider } from "y-websocket";
+import { usersData } from "./users-data";
 
 type Todo = { completed: boolean; title: string };
 
@@ -14,6 +15,12 @@ export const wsProvider = new WebsocketProvider(
   "default-room",
   doc
 );
+
+export const awareness = wsProvider.awareness;
+
+const user = usersData[Math.floor(Math.random() * usersData.length)];
+
+awareness.setLocalState(user);
 
 export const disconnect = () => wsProvider.disconnect();
 export const connect = () => wsProvider.connect();
