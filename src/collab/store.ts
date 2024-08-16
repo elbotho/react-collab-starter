@@ -18,9 +18,20 @@ export const wsProvider = new WebsocketProvider(
 
 export const awareness = wsProvider.awareness;
 
-const user = usersData[Math.floor(Math.random() * usersData.length)];
+const storedData = localStorage.getItem("dummyUser");
 
-awareness.setLocalState(user);
+let randomUser = undefined;
+
+if (!storedData) {
+  const data = usersData[Math.floor(Math.random() * usersData.length)];
+  randomUser = {
+    ...data,
+    name: `${data.name} ${Math.floor(Math.random() * 100)}`,
+  };
+  localStorage.setItem("dummyUser", JSON.stringify(randomUser));
+}
+
+awareness.setLocalState(storedData ? JSON.parse(storedData) : randomUser);
 
 export const disconnect = () => wsProvider.disconnect();
 export const connect = () => wsProvider.connect();
